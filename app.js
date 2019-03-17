@@ -1,10 +1,7 @@
 const http = require('http')
 const fs = require('fs');
 
-
-
-const readfile = fs.createReadStream(__dirname + '/file.txt','utf-8')
-const wriefile = fs.createWriteStream(__dirname + '/write.txt')
+//const wriefile = fs.createWriteStream(__dirname + '/write.txt')
 
 // readfile.on('data', function(chunk){
 //     console.log('new chunk recived');
@@ -12,5 +9,10 @@ const wriefile = fs.createWriteStream(__dirname + '/write.txt')
 //     wriefile.write(chunk);
 // });
 
-readfile.pipe(wriefile)
+//readfile.pipe(wriefile)
 
+const server = http.createServer((req, res) => {
+    const readfile = fs.createReadStream(__dirname + '/file.txt','utf-8')
+    readfile.pipe(res)
+  })
+server.listen(3000)
